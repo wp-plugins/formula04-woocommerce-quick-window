@@ -12,7 +12,7 @@ With woocommerce shop pages, allow users to view more details about each product
 
 == Description ==
 
-Create a button underneath each single product listing.  When clicked this button triggers a pop-up window that will allow the user to view more information about the product and add the product to their cart. All done without a page reload.  As far as the pop-up window content, you can use the standard woocommerce single-product.php template, our custom formula04 template, or use your own custom template! 
+Create a button underneath each single product listing.  When clicked this button triggers a pop-up window that will allow the user to view more information about the product and add the product to their cart. All done without a page reload.  As far as the pop-up window content, you can use the standard woocommerce single-product.php template, our custom formula04 template, or use your own custom template!  This is meant to be a super simple straight forward plug for the time being.  Definitely let me know any features you wanted added on.  
 
 == Installation ==
 
