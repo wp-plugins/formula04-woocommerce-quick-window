@@ -85,8 +85,8 @@ Typically this will be located in "wp-content/plugins/formula04-woocommerce-quic
 
 Copy this file to your Theme/Child Theme's directory.  
 
-Typically it would looke like this
-wp-content/themes/YOURTHEMENAME/formula04_quickwindow_template.php
+Typically it would looke like this <br />
+<strong>wp-content/themes/YOURTHEMENAME/formula04_quickwindow_template.php</strong>
 
 
 == Changelog ==

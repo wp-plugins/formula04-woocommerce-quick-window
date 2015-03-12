@@ -5,7 +5,7 @@
 * Plugin Name: Formula04 Quick Window
 * Plugin URI: http://formula04.com/plugins/quickwindow
 * Description: Just a simple little plug that adds a product popup window to woocommerce archive pages.  Customers on your site can not only view additional product information normally seen on the single product page; but they can also add products to the cart as well.  
-* Version: 1.0.1
+* Version: 2.0.1
 * Author: Verb Wit
 * Author URI: http://formula04.com/plugins/quickwindow
 * License: TOKILL
@@ -319,7 +319,7 @@ jQuery(function() {
 		}else{
 		  $old_window = false;	
 		  //Add Out popup window for this product on to screen.
-		  var $new_popup_content = '<div  class="one_form04quickwindow_content" id = "form04quickwindow_'+$quick_window_id+'"><div class="loading_graphic">Loading</div></div>';
+		  var $new_popup_content = '<div  class="one_form04quickwindow_content" id = "form04quickwindow_'+$quick_window_id+'"><div class="loading_graphic"><div></div><div></div><div></div><div></div><div></div></div></div>';
 		  jQuery('.popupcontent').prepend($new_popup_content);	 
 		}
 		
@@ -547,6 +547,68 @@ jQuery(document).on('change', '.one_form04quickwindow_content table.variations s
 .quick_button {
 	max-width:100%;
 }
+	
+	
+<?php //loading graphic ?>	
+// Variables
+$loader-size: 100px;
+$loader-dot-size: ($loader-size / 5);
+$loader-height: ($loader-dot-size * 2);
+$loader-dot-color: #2196F3;
+
+// HTML
+.loader-walk {
+  width: $loader-size;
+  height: $loader-height;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  > div {
+    content: "";
+    width: $loader-dot-size;
+    height: $loader-dot-size;
+    background: $loader-dot-color;
+    border-radius: 100%;
+    position: absolute;
+    animation: animate 2s linear infinite;
+    &:nth-of-type(1) { animation-delay: -.4s; }
+    &:nth-of-type(2) { animation-delay: -.8s; }
+    &:nth-of-type(3) { animation-delay: -1.2s; }
+    &:nth-of-type(4) { animation-delay: -1.6s; }
+  }
+}
+@keyframes animate {
+  0% { 
+    left: $loader-size; 
+    top:0
+  }
+  80% { 
+    left: 0; 
+    top:0;
+  }
+  85% { 
+    left: 0; 
+    top: -$loader-dot-size; 
+    width: $loader-dot-size; 
+    height: $loader-dot-size;
+  }
+  90% { 
+    width: ($loader-dot-size * 2); 
+    height: ($loader-dot-size - 5px); 
+  }
+  95% { 
+    left: $loader-size; 
+    top: -$loader-dot-size; 
+    width: $loader-dot-size; 
+    height: $loader-dot-size;
+  }
+  100% { 
+    left: $loader-size; top:0; 
+  }
+}
+	
+	
 	
 <?php //All CSS POP UP ?>
 <?php //CSS POP UP ?>
