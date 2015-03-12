@@ -178,6 +178,8 @@ if ( ! class_exists( 'Form04WooQuickWindow' ) ) {
 
 	//Shortcode function that creates the actual HTML for the quick button
 	public function add_quick_window_button_shortcode( $atts ) {
+		
+		
 		global $post;
 		$options = $this->options;
 		$f04_quickwindow_button_text = isset(  $options['formula04_quick_window_button_text']  )  && strlen(trim($options['formula04_quick_window_button_text'])) > 1 ? $options['formula04_quick_window_button_text'] :  'Quick Window';
@@ -248,7 +250,7 @@ if ( ! class_exists( 'Form04WooQuickWindow' ) ) {
 	  }
 	  
 	  
-	  function myplugin_plugin_path() {
+	  public function myplugin_plugin_path() {
        //gets the absolute path to this plugin directory
 		  return untrailingslashit( plugin_dir_path( __FILE__ ) );
       }
@@ -347,11 +349,7 @@ jQuery(function() {
 
 		  // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 		  jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', data, function(response) {
-			 console.log('<?php echo admin_url('admin-ajax.php'); ?>')
-			 console.log(data); 
-			 console.log(response);
 			 //Json Respnose			  
-			 
 			  var jsonRes = JSON.parse(response);
 			  var $product_type = jsonRes.product_type;
 			  //If he have already popped this window up, lets not load it through ajax again.
@@ -380,8 +378,8 @@ jQuery(function() {
 
 
 
-//close_quickwindow
-//Make srue to set hash to out popupwindow is not active but invisible
+//Close Quick Windo
+//Make sure to set hash to out popupwindow is not active but invisible
 jQuery(document).on("click", ".close_quickwindow", function() {
 	 window.location.hash = '';
 });
@@ -430,8 +428,7 @@ jQuery(document).on('change', '.one_form04quickwindow_content table.variations s
 		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
  		  jQuery.post('<?php echo admin_url('admin-ajax.php'); ?>', data, function(response) {
 			 //Json Respnose		
-			 console.log(response);	  
-			  //GET Our JSON Response
+			 //GET Our JSON Response
 			  var jsonRes = JSON.parse(response);
 			  //We failed to find a variation match
 			  if(jsonRes.hasOwnProperty('failure')){
@@ -550,64 +547,7 @@ jQuery(document).on('change', '.one_form04quickwindow_content table.variations s
 	
 	
 <?php //loading graphic ?>	
-// Variables
-$loader-size: 100px;
-$loader-dot-size: ($loader-size / 5);
-$loader-height: ($loader-dot-size * 2);
-$loader-dot-color: #2196F3;
 
-// HTML
-.loader-walk {
-  width: $loader-size;
-  height: $loader-height;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  > div {
-    content: "";
-    width: $loader-dot-size;
-    height: $loader-dot-size;
-    background: $loader-dot-color;
-    border-radius: 100%;
-    position: absolute;
-    animation: animate 2s linear infinite;
-    &:nth-of-type(1) { animation-delay: -.4s; }
-    &:nth-of-type(2) { animation-delay: -.8s; }
-    &:nth-of-type(3) { animation-delay: -1.2s; }
-    &:nth-of-type(4) { animation-delay: -1.6s; }
-  }
-}
-@keyframes animate {
-  0% { 
-    left: $loader-size; 
-    top:0
-  }
-  80% { 
-    left: 0; 
-    top:0;
-  }
-  85% { 
-    left: 0; 
-    top: -$loader-dot-size; 
-    width: $loader-dot-size; 
-    height: $loader-dot-size;
-  }
-  90% { 
-    width: ($loader-dot-size * 2); 
-    height: ($loader-dot-size - 5px); 
-  }
-  95% { 
-    left: $loader-size; 
-    top: -$loader-dot-size; 
-    width: $loader-dot-size; 
-    height: $loader-dot-size;
-  }
-  100% { 
-    left: $loader-size; top:0; 
-  }
-}
-	
 	
 	
 <?php //All CSS POP UP ?>
@@ -695,17 +635,7 @@ $loader-dot-color: #2196F3;
 	display:block;	
 }
 
-.loading_graphic{
-	max-width:80%;
-	margin:auto;
-	background-color:red;
-	line-height:100%;
-	vertical-align:middle;
-	width:200px;
-	height:200px;
-	
-	
-}
+
 @media screen and (max-width: 700px){
   .box{
     width: 70%;
@@ -1042,7 +972,17 @@ line-height: 1.4em;s
 
 }
 
-
+.quick-window .loading_graphic{
+	max-width:80%;
+	margin:auto;
+	background-color:transparent;
+	line-height:100%;
+	vertical-align:middle;
+	width:200px;
+	height:200px;
+	text-align:center;
+	font-size:3em;
+}
 
 @media screen and (max-width:768px){
 
@@ -1089,7 +1029,7 @@ public function plugin_activation_string( $translated_text, $untranslated_text, 
             "Selected plugins <strong>activated</strong>." 
         );
 
-        $new = "Formula04 Quick Window is installed.  Lets get it  <strong>PoPPing!</strong>";
+        $new = "Formula04 Quick Window is installed.  Let's get it  <strong>PoPPing!</strong>";
 
         if ( in_array( $untranslated_text, $old, true ) )
             $translated_text = $new;
