@@ -63,12 +63,6 @@ Create a button underneath each single product listing.  When clicked this butto
 
 == Frequently Asked Questions ==
 
-
-
-
-
-
-
 = Where can I see DEMO with one click =
 
 <a href="http://www.formula04.com/quickwindow/" target="_blank">Right Here</a> 
