@@ -3,11 +3,11 @@
 
 
 * Plugin Name: Formula04 Quick Window
-* Plugin URI: http://formula04.com/plugins/quickwindow
+* Plugin URI: http://formula04.com/quickwindow
 * Description: Just a simple little plug that adds a product popup window to woocommerce archive pages.  Customers on your site can not only view additional product information normally seen on the single product page; but they can also add products to the cart as well.  
-* Version: 2.0.1
+* Version: 2.0.5
 * Author: Verb Wit
-* Author URI: http://formula04.com/plugins/quickwindow
+* Author URI: https://profiles.wordpress.org/verb_form04/
 * License: TOKILL
 */ 
 
@@ -25,6 +25,8 @@ defined('ABSPATH') or die("No script Kittens please!");
 //register_activation_hook( __FILE__, array( 'utComments', 'activate' ) );
 //register_deactivation_hook( __FILE__, array( 'utComments', 'deactivate' ) );
 //End Comments Stuff
+
+
 
 
 			
@@ -89,6 +91,11 @@ if ( ! class_exists( 'Form04WooQuickWindow' ) ) {
 			if( get_transient( 'formula04_quick_window_activated' ) ):
 						add_filter( 'gettext',  array( &$this, 'plugin_activation_string'), 99, 3 );
 			endif;		 
+		
+			$plugin = plugin_basename( __FILE__ );
+			add_filter( "plugin_action_links_$plugin", array( &$this, 'plugin_add_settings_link') );
+
+		
 	
 			
 		}else{
@@ -118,6 +125,7 @@ if ( ! class_exists( 'Form04WooQuickWindow' ) ) {
 		//Begin Functions
 		//----------------------------
 		public function compatible_plugin_running() {
+		 $options = $this->options;	
 		//Currently Just Compatible With WooCommerce
 		$plugin = 'woocommerce';
 	
@@ -128,15 +136,28 @@ if ( ! class_exists( 'Form04WooQuickWindow' ) ) {
 			 //add_shortcode( 'formula04quickwindow', 'add_quick_window_button_shortcode' );
 			 add_shortcode( $this->tag, array( &$this, 'add_quick_window_button_shortcode' ) );
 			 
-			 //add_action('woocommerce_after_shop_loop_item_title', 'add_quick_window_button');
-			 add_action('woocommerce_after_shop_loop_item_title', array( &$this, 'add_quick_window_button' ));
+						 
+			//Should we auto show the buttons				
+			 if(  isset(  $options['formula04_quickwindow_button_display']) && $options['formula04_quickwindow_button_display'] == 1):
+			  	//Automatically Add button after product title
+			 	add_action('woocommerce_after_shop_loop_item_title', array( &$this, 'add_quick_window_button' ));
+			  else:
+			  //Don't Auto Load Buttons :(
+			  endif;//if(  isset(  $options['formula04_use_f04_css']) && $options['formula04_use_f04_css'] == 1):
+			 
+			 
+			 
+			 
+			 
+			 
+			 
 			 
 			 //Add Scripts and styles
 			 add_action('wp_head', array( &$this, 'add_quick_window_button_scripts' ));	
 				
 			 //add_filter( 'woocommerce_locate_template', 'myplugin_woocommerce_locate_template', 10, 3 );
 	
-			  $options = $this->options;
+			 
 			  if(  isset(  $options['formula04_use_f04_css']) && $options['formula04_use_f04_css'] == 1):
 				add_action('wp_head', array( &$this, 'formula04_quick_window_button_css') );
 			  else:
@@ -1037,16 +1058,19 @@ public function plugin_activation_string( $translated_text, $untranslated_text, 
         return $translated_text;
      }
 
-
-
-
+//Add Settings link on plugins.php page
+public function plugin_add_settings_link( $links ) {
+    $settings_link = '<a href="options-general.php?page='.$this->tag.'">' . __( 'Settings' ) . '</a>';
+    array_push( $links, $settings_link );
+  	return $links;
+}
 
 
 //add settings menu link in admin
 public function formula_04_settings_menu() {
    // Add a new submenu under Settings:
    
-   add_options_page(__('Formula 04 Quick Window','formula04'), __('F04 Quick Window','formula04'), 'manage_options', 'formula04-quick-window',  array( &$this, 'formula_04_settings_page' ));
+   add_options_page(__('Formula 04 Quick Window','formula04'), __('F04 Quick Window','formula04'), 'manage_options', $this->tag,  array( &$this, 'formula_04_settings_page' ));
 }
 
 public function formula_04_settings_page() {
@@ -1074,13 +1098,17 @@ public function formula04_quickwindow_settings_init(  ) {
 		'F04QuickWindowSet'
 	);
 
+
+	
 	add_settings_field( 
-		'formula04_quickwindow_template', 
-		__( 'Pop Up Window Content Setting', 'formula04' ), 
-		 array( &$this, 'formula04_quick_window_content_render'), 
-		'F04QuickWindowSet', 
-		'formula04_F04QuickWindowSet_section' 
-	);	
+	'formula04_quickwindow_button_display', 
+	__( 'Auto Display Quick View Button ', 'formula04' ), 
+	 array( &$this, 'formula04_quickwindow_button_display_render'), 
+	'F04QuickWindowSet', 
+	'formula04_F04QuickWindowSet_section' 
+	);
+	
+	
 
 
 	add_settings_section(
@@ -1089,16 +1117,11 @@ public function formula04_quickwindow_settings_init(  ) {
 		 array( &$this, 'formula04_quickwindow_button_settings_callback'), 
 		'F04QuickWindowSet'
 	);		
+	
+	
 
 		
 
-	add_settings_field( 
-		'formula04_quick_window_button_text', 
-		__( 'Formula04 QuickWindow Button Text', 'formula04' ), 
-		 array( &$this, 'formula04_quick_window_button_text_render'), 
-		'F04QuickWindowSet', 
-		'formula04_F04QuickWindowSet_quickbutton_section' 
-	);		
 
 
 
@@ -1135,6 +1158,16 @@ public function formula04_quickwindow_settings_init(  ) {
 	);
 
 		
+	add_settings_field( 
+		'formula04_quickwindow_template', 
+		__( 'Pop Up Window Content Setting', 'formula04' ), 
+		 array( &$this, 'formula04_quick_window_content_render'), 
+		'F04QuickWindowSet', 
+		'formula04_F04QuickWindowSet_checkout_section' 
+	);	
+		
+		
+		
 
 	add_settings_field( 
 	'formula04_use_f04_css', 
@@ -1157,19 +1190,26 @@ public function formula04_quickwindow_settings_init(  ) {
 //Actual Output of Settings Fields.
 //----------------------------
 
-public function formula04_quickwindow_allow_add_to_cart_render(  ) { 
+public function formula04_quickwindow_button_display_render(  ) { 
 	$options = $this->options;?>
-	<input type='checkbox' name='formula04_quickwindow_settings[formula04_quickwindow_allow_add_to_cart]' <?php echo $options  && isset($options['formula04_quickwindow_allow_add_to_cart']) && $options['formula04_quickwindow_allow_add_to_cart'] ? 'checked' : '';  /* checked( $options['formula04_use_f04_css'], 1 );*/ ?> value='1'>
+	<input type='checkbox' name='formula04_quickwindow_settings[formula04_quickwindow_button_display]' <?php echo $options  && isset($options['formula04_quickwindow_button_display']) && $options['formula04_quickwindow_button_display'] ? 'checked' : '';?> value='1'>
+    <span class=""><?php
+	 _e('If this is selected, the Formula04 Quick View Button will be automatically shown.  <br />Leave this unchecked if you plan on using the <strong>shortcode</strong> in your templates and content to determine where the buttons show up. ', 'formula04');
+?></span>
 <?php
 }
 
-
+public function formula04_quickwindow_allow_add_to_cart_render(  ) { 
+	$options = $this->options;?>
+	<input type='checkbox' name='formula04_quickwindow_settings[formula04_quickwindow_allow_add_to_cart]' <?php echo $options  && isset($options['formula04_quickwindow_allow_add_to_cart']) && $options['formula04_quickwindow_allow_add_to_cart'] ? 'checked' : '';?> value='1'>
+<?php
+}
 
 public function formula04_use_f04_css_render(  ) { 
 
 	$options = $this->options;?>
 
-<input type='checkbox' name='formula04_quickwindow_settings[formula04_use_f04_css]' <?php echo $options  && isset($options['formula04_use_f04_css']) && $options['formula04_use_f04_css'] ? 'checked' : '';  /* checked( $options['formula04_use_f04_css'], 1 );*/ ?> value='1'>
+<input type='checkbox' name='formula04_quickwindow_settings[formula04_use_f04_css]' <?php echo $options  && isset($options['formula04_use_f04_css']) && $options['formula04_use_f04_css'] ? 'checked' : '';?> value='1'>
 
 <span class="">
 
@@ -1198,19 +1238,19 @@ public function formula04_quick_window_content_render(  ) {
 public function formula04_quick_window_button_text_render(  ) { 
 	$options = $this->options;
 	$f04_quick_window_button_text = isset(  $options['formula04_quick_window_button_text']  )  ? $options['formula04_quick_window_button_text'] :  '';?>
-    <input type="text" value="<?php echo $f04_quick_window_button_text; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_text]" />
+    <input size="50" placeholder="Text that appears on Quick View Button" type="text" value="<?php echo $f04_quick_window_button_text; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_text]" />
 <?php }
 
 public function formula04_quick_window_button_classes_render(  ) { 
 	$options = $this->options;
 	$f04_quick_window_button_classes = isset(  $options['formula04_quick_window_button_classes']  )  ? $options['formula04_quick_window_button_classes'] :  '';?>
-    <input type="text" value="<?php echo $f04_quick_window_button_classes; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_classes]" />
+    <input  size="50" placeholder="Add extra classes to the button" type="text" value="<?php echo $f04_quick_window_button_classes; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_classes]" />
 <?php }
 
 public function formula04_quick_window_button_id_render(  ) { 
 	$options = $this->options;
 	$formula04_quick_window_button_id = isset(  $options['formula04_quick_window_button_id']  )  ? $options['formula04_quick_window_button_id'] :  '';?>
-	<input type="text" value="<?php echo $formula04_quick_window_button_id; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_id]" />
+	<input size="50" placeholder="Add an ID to the button" type="text" value="<?php echo $formula04_quick_window_button_id; ?>" name="formula04_quickwindow_settings[formula04_quick_window_button_id]" />
 <?php }
 
 public function formula04_quickwindow_settings_checkout_section_callback( ){?>
