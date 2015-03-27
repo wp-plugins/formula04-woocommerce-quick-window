@@ -7,6 +7,7 @@
 * Description: Just a simple little plug that adds a product popup window to woocommerce archive pages.  Customers on your site can not only view additional product information normally seen on the single product page; but they can also add products to the cart as well.  
 * Version: 2.0.5
 * Author: Verb Wit
+* Tested up to: 4.1.1
 * Author URI: https://profiles.wordpress.org/verb_form04/
 * License: TOKILL
 */ 
