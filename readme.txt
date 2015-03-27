@@ -90,7 +90,9 @@ Create a button underneath each single product listing.  When clicked this butto
 <a href="http://www.formula04.com/quickwindow/" target="_blank">Right Here</a>  
  
 = How do I use my own template for the pop up window? = 
-There is a file located in the Formula04 Woocommerce Quick Window Plugin Folder named "<strong>formula04_quickwindow_template.php</strong>"  Typically this will be located in "<strong>wp-content/plugins/formula04-woocommerce-quick-window/</strong>" 
+There is a file located in the Formula04 Woocommerce Quick Window Plugin Folder named "<strong>formula04_quickwindow_template.php</strong>"  
+
+Typically this will be located in "<strong>wp-content/plugins/formula04-woocommerce-quick-window/</strong>" 
 Copy this file to your Theme/Child Theme's directory.   
 
 Typically it would looke like this <br /> 
