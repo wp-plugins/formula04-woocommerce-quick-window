@@ -1,125 +1,58 @@
 === Formula04 WooCommerce Quick Window ===
-
-
-
-Contributors: Verb_Form04
-
-
-
-Donate link: http://formula04.com/
-
-
-
-Tags: woocommerce, popup, quickview, ecommerce
-
-
-
-Requires at least: 4.0.0
-
-
-
+Contributors: Verb_Form04 
+Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=verbiphone%40gmail%2ecom
+Tags: Woocommerce, Pop Up, 
+Requires at least: 3.5.0
 Tested up to: 4.1.1
+Stable tag: 
 
-
-
-Stable tag: 2.0.1
-
-
-
-License: GPLv2 or later
-
-
-
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-
-
-
-
-
-
-With woocommerce shop pages, allow users to view more details about each product/add to cart in a pop up window, without leaving the shop page.  
-
-
-
-
-
-
+Creates a button/popup that allows your customers to view more details about a product without having to go to the individual page; add to cart too!
 
 == Description ==
 
-
-
-
-
-
-
-Create a button underneath each single product listing.  When clicked this button triggers a pop-up window that will allow the user to view more information about the product and add the product to their cart. All done without a page reload.  As far as the pop-up window content, you can use the standard woocommerce single-product.php template, our custom formula04 template, or use your own custom template!  This is meant to be a super simple straight forward plug for the time being.  Definitely let me know any features you wanted added on.  
-
-
-
-
-
-
+Create's a pop up that contains the Product information for one product.  You can choose to automatically add a "popup" button to each product on the shop page; or using a shortcode you can control where the button appears and what product will be shown in the popup after said button is clicked.  You also can enable the adding of the product directly to the cart from the pop up.  This prevents your users having to go to the individual product page before adding the product to their cart.  
+  
+Just a very basic plug not meant to be anything too overcomplicated. If you have an ideas or feature requests let me know!
 
 == Installation ==
+After installing you will need to go to the Formula04 Quick Window Settings page and tweak a few things.
 
-
-
-
-
-
-
-1. Upload 'forumula-04-quick-window.zip' to the '/wp-content/plugins/' directory
-
-
-
-1. Activate the plugin through the 'Plugins' menu in WordPress
-
-
-
-
-
+<strong>Auto Display Quick View Button</strong> - Select this if you want the pop-up button to automatically appear under each product listing.  This will apply to most widgets as well.<br />
+<strong>Formula04 QuickWindow Button Text</strong> - What text do you want to be on the pop up button.  This will be the universal throughout every Formula04 QuickWindow button on your site.<br />
+<strong>Formula04 QuickWindow Button Extra Classes AND Formula04 QuickWindow Button ID</strong> - Add a CSS Class or ID to a button.  This will be the universal throughout every Formula04 QuickWindow button on your site.<br />
+<strong>Pop Up Window Content Setting</strong> - What do you want to appear in the pop-up window?  You can choose from either whatever your current single product page template is, or you can use a custom layout. <br />
+<strong>Use Formula04 CSS?</strong> - enables a very tiny bit of css that will be applied to the pop window assuming you are using the formula04default custom template.
+<strong>Allow Add To Cart from Formula04 Quick Window</strong> - do you want to allow your visitors to add a product to their cart directly from the Formula04 QuickWindow?
 
 
 == Frequently Asked Questions ==
 
+** Where can I see DEMO with one click?**
 
-== Frequently Asked Questions == 
- Where can I see DEMO with one click = 
-<a href="http://www.formula04.com/quickwindow/" target="_blank">Right Here</a>  
- 
-= How do I use my own template for the pop up window? = 
-There is a file located in the Formula04 Woocommerce Quick Window Plugin Folder named "<strong>formula04_quickwindow_template.php</strong>"  
+**<a href="http://www.formula04.com/quickwindow/" target="_blank" title="Formula04 Woocommerce Quick Window demo">Right HERE</a>**
 
-Typically this will be located in "<strong>wp-content/plugins/formula04-woocommerce-quick-window/</strong>" 
-Copy this file to your Theme/Child Theme's directory.   
+** How do I use my own template for the pop up window?**
 
-Typically it would looke like this <br /> 
-<strong>wp-content/themes/YOURTHEMENAME/formula04_quickwindow_template.php</strong> 
+There is a file located in the Formula04 Woocommerce Quick Window Plugin Folder named "**formula04\_quickwindow\_template.php"**
 
-= How often do you plan on updating =
+Typically this will be located in "**wp-content/plugins/formula04-woocommerce-quick-window/**" 
 
+Copy this file to your Theme/Child Theme's directory.   
 
+Typically it would looke like this
 
+**wp-content/themes/YOURTHEMENAME/formula04\_quickwindow\_template.php **
 
+** How can I add a single quickwindow button exactly where I want it **
 
+Use the Shortcode it is <strong>[form04wooquickwindow]</strong>
 
+Attributes are
+product_id - if none is specified then the script will look for a product using the current global ID
+id - CSS ID
+class CSS Classes
+button_text - Text that appears on the actual button.
 
-As often as possible!
+Example:
 
-
-
-
-
-
-
-== Changelog ==
-
-
-
-
-
-
-
-= 1.0 =
+[form04wooquickwindow button_text="Quick View" product_id="Product ID HERE" id="Some_CSS_ID_HERE" class="SOME CSS CLASS HERE" ]
