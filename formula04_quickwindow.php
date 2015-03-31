@@ -5,7 +5,7 @@
 * Plugin Name: Formula04 Quick Window
 * Plugin URI: http://formula04.com/quickwindow
 * Description: Just a simple little plug that adds a product popup window to woocommerce archive pages.  Customers on your site can not only view additional product information normally seen on the single product page; but they can also add products to the cart as well.  
-* Version: 2.0.6
+* Version: 2.0.7
 * Author: Verb Wit
 * Tested up to: 4.1.1
 * Author URI: https://profiles.wordpress.org/verb_form04/

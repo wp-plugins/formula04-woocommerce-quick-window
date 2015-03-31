@@ -55,10 +55,14 @@ Typically it would looke like this
 Use the Shortcode it is **[form04wooquickwindow]**
 
 Attributes are
-product_id - if none is specified then the script will look for a product using the current global ID
-id - CSS ID
-class CSS Classes
-button_text - Text that appears on the actual button.
+
+**product_id** - if none is specified then the script will look for a product using the current global ID
+
+**id** - CSS ID
+
+**class** CSS Classes
+
+**button_text** - Text that appears on the actual button.
 
 Example:
 
