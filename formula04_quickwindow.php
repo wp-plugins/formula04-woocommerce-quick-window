@@ -5,7 +5,7 @@
 * Plugin Name: Formula04 Quick Window
 * Plugin URI: http://formula04.com/quickwindow
 * Description: Just a simple little plug that adds a product popup window to woocommerce archive pages.  Customers on your site can not only view additional product information normally seen on the single product page; but they can also add products to the cart as well.  
-* Version: 2.0.7
+* Version: 2.0.5
 * Author: Verb Wit
 * Tested up to: 4.1.1
 * Author URI: https://profiles.wordpress.org/verb_form04/
@@ -305,9 +305,22 @@ public function add_quick_window_button_scripts(){?>
 //The Javascript?>
 	<script type="text/javascript">
 	<?php //Add Quick Window Element to Dom ?>
+	
+	
+	jQuery(document).on('click', '.form04quickwindow_overlay', function(e){
+		 if( e.target !== this ){ 
+       return;
+	}else{}
+	
+	window.location.hash = '/';
+	
+	});
+
+	
+	
 	jQuery( document ).ready(function() {
 		//jQuery('body').append('<div id="quick_window_wrapper"></div>');	
-		var $pop_container_up_html = '<div id="quick_window_wrapper" class="form04quickwindow_overlay"><div class="popup"><a class="close close_quickwindow" href="#">&times;</a><div class="popupcontent"></div></div>';
+		var $pop_container_up_html = '<div id="quick_window_wrapper" class="form04quickwindow_overlay"><div class="popup"><a class="close close_quickwindow" href="#/">&times;</a><div class="popupcontent"></div></div>';
 		jQuery('body').append($pop_container_up_html);	
 	});
 
@@ -402,8 +415,9 @@ jQuery(function() {
 
 //Close Quick Windo
 //Make sure to set hash to out popupwindow is not active but invisible
-jQuery(document).on("click", ".close_quickwindow", function() {
-	 window.location.hash = '';
+jQuery(document).on("click", ".close_quickwindow", function(e) {
+	//e.preventDefault();
+	// window.location.hash = '  ';
 });
 
 	 
@@ -1286,11 +1300,7 @@ static function uninstall() {
             // do not generate any output here
 			delete_option( 'formula04_quickwindow_settings' );
  }
-
-
-
-		
-	}//class Form04wooquickwindow
+}//class Form04wooquickwindow
 	new Form04wooquickwindow;
 }//if ( ! class_exists( 'Form04wooquickwindow' ) ) {	
 
